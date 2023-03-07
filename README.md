@@ -61,7 +61,7 @@ $ ansible-playbook upgrade_centos7to8_shell.yml
   
 to fellow the upgrade progress, check the logs on the upgraded machine  
 $ ssh roo@192.168.2.4  
-$ tail -f /var/log/upg
+$ tail -f /var/log/upgrade_centos7to8_shell.log
   
   
 # upgrade using ansible modules  
@@ -69,7 +69,7 @@ The same upgrade work achieved by shell script can be done using ansible modules
 
 $ ansible-playbook upgrade_centos7to8_ansible.yml  
 $ ssh roo@192.168.2.4  
-$ tail -f /var/log/upg  
+$ tail -f /var/log/upgrade_centos7to8_shell.log
 
 
 
