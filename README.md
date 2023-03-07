@@ -25,12 +25,12 @@ end
 
 # From controller machine
 # Install ansible and connect to centos7 machine
-$sudo su -
-$subscription-manager register --auto-attach --username username  --password password
-$dnf install ansible ansible-core
-$dnf install rhel-system-roles
-$mkdir ansible && cd ansible
-$vi inventory
+$sudo su -  
+$subscription-manager register --auto-attach --username username  --password password  
+$dnf install ansible ansible-core  
+$dnf install rhel-system-roles  
+$mkdir ansible && cd ansible  
+$vi inventory  
 [centos]
 192.168.2.4
 $vi ansible.cfg
