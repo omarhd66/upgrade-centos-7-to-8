@@ -1,0 +1,10 @@
+- name:  upgarde system from centos 7 to 8
+  hosts: centos
+  become: True
+  remote_user: root
+  tasks:
+  - name: test shell
+    script: upgrade_centos7to8_shell.sh  > /var/log/upgrade_centos7to8_shell.log
+    register: content
+  - debug:
+      var: content

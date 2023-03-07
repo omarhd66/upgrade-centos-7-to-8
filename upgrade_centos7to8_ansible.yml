@@ -1,0 +1,171 @@
+---
+- name:  upgarde system from centos 7 to 8
+  hosts: centos
+  become: True
+  remote_user: root
+  vars:
+    timezone: Africa/Casablanca
+    timesync_ntp_servers:
+      - hostname: ma.pool.ntp.org
+        iburst: yes
+
+  tasks:
+  
+  - name: The current version
+    command: cat /etc/redhat-release
+    register: release
+  - debug:
+      var: release.stdout
+
+  - name: DNS configuration
+    lineinfile:
+      path: /etc/resolv.conf
+      regexp: nameserver 9.9.9.9
+      line: nameserver 9.9.9.9
+      state: present
+
+    #name: NTP configuration
+  - include_role:
+      name: rhel-system-roles.timesync
+
+
+  - name: TZ configuration
+    timezone:
+      name: "{{ timezone }}"
+
+  - name: install pkgs
+    yum:
+      name:
+        - epel-release
+        - yum-utils
+        - rpmconf
+      state: present
+      
+  - name: cleanup
+    shell: |
+      rpmconf -a
+      package-cleanup --leaves
+      package-cleanup --orphans
+
+  - debug: 
+      msg: |
+       rpmconf -a
+       package-cleanup --leaves
+       package-cleanup --orphans
+      
+  - name: Install dnf
+    yum:
+      name: dnf
+      state: present
+
+  - name: Remove yum
+    dnf:
+      name:
+        - yum
+        - yum-metadata-parser
+      state: absent
+
+  - name: Remove yum dir
+    file:
+      path: /etc/yum
+      state: absent
+
+  - name: dnf upgrade -y
+    shell: dnf upgrade -y >> /var/log/upgrade.log
+    
+  - name: install epel packages
+    dnf:
+      name:
+        - 'http://vault.centos.org/8.5.2111/BaseOS/x86_64/os/Packages/centos-linux-repos-8-3.el8.noarch.rpm'
+        - 'http://vault.centos.org/8.5.2111/BaseOS/x86_64/os/Packages/centos-linux-release-8.5-1.2111.el8.noarch.rpm'
+        - 'http://vault.centos.org/8.5.2111/BaseOS/x86_64/os/Packages/centos-gpg-keys-8-3.el8.noarch.rpm'
+      state: present
+
+  - name: upgrad epel
+    shell: dnf -y upgrade https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+
+  - name: Remove old Repositories
+    block:
+      - find:
+          paths: /etc/yum.repos.d/
+          patterns: "*.repo"
+        register: filestodelete
+
+      - file:
+          path: "{{ item.path }}"
+          state: absent
+        with_items: "{{ filestodelete.files }}"
+
+      - command: ls -l /etc/yum.repos.d/
+        register: oldrepos
+      - debug: var=oldrepos.stdout_lines
+
+  - name: Prepar Repositories
+    block:
+      - blockinfile:
+          path: /etc/yum.repos.d/CentOS-Linux-BaseOS.repo
+          create: yes
+          block: |
+            [baseos]
+            name=CentOS Linux $releasever - BaseOS
+            baseurl=http://vault.centos.org/$contentdir/$releasever/BaseOS/$basearch/os/
+            gpgcheck=1
+            enabled=1
+            gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
+
+      - blockinfile:
+          path: /etc/yum.repos.d/CentOS-Linux-AppStream.repo
+          create: yes
+          block: |
+            [appstream]
+            name=CentOS Linux $releasever - AppStream
+            baseurl=http://vault.centos.org/$contentdir/$releasever/AppStream/$basearch/os/
+            gpgcheck=1
+            enabled=1
+            gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
+
+      - blockinfile:
+          path: /etc/yum.repos.d/CentOS-Linux-Extras.repo
+          create: yes
+          block: |
+            [extras]
+            name=CentOS Linux $releasever - Extras
+            baseurl=http://vault.centos.org/$contentdir/$releasever/extras/$basearch/os/
+            gpgcheck=1
+            enabled=1
+            gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
+
+      - command: ls -l /etc/yum.repos.d/
+        register: repos
+      - debug: var=repos.stdout_lines
+
+  - shell: |
+      rpm -e `rpm -q kernel`
+      rpm -e --nodeps sysvinit-tools
+      dnf -y --releasever=8 --allowerasing --setopt=deltarpm=false distro-sync
+      dnf -y install kernel-core --allowerasing
+      dnf update procps-ng
+      rpm --rebuilddb
+
+  - name: dnf update
+    dnf:
+      name: '*'
+      state: latest
+
+  - shell: rpm -Va --nofiles --nodigest
+    register: rpm
+    ignore_errors: yes
+  - debug: var=rpm
+
+  - shell: |
+      dnf -y groupupdate "Core" "Minimal Install"  --skip-broken
+      dnf clean packages
+
+  - reboot:
+
+  - name: the updated version
+    command: cat /etc/redhat-release
+    register: release
+  - debug:
+      var: release.stdout
+  
