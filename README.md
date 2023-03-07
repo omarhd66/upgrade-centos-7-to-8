@@ -1,5 +1,5 @@
 # upgrade-centos-7-to-8
-automationg ugrade geelingguy/centos7 to centos version 8 using shell and ansible scripts.  
+automationg ugrade geelingguy/centos7 to centos version 8 using shell and ansible scripts that are ruuned from controller machine.  
 
 # Provisionning infrastructure using vagrant
 install two VMs using Vagrant, install in one vm geelingguy/centos box which will be upgraded to centos8, and install general/rhel8 box on the seconde vm which act as a controller and install ansible on it, from where we will upgrade the centos7 vm.  
