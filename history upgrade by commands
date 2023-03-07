@@ -1,0 +1,143 @@
+    1  echo $basearch
+    2  exit
+    3  yum install epel-release -y
+    4  yum install yum-utils
+    5  yum install rpmconf
+    6  rpmconf -a
+    7  yum install rpmconf -y
+    8  rpmconf -a
+    9  package-cleanup --leaves
+   10  package-cleanup --orphans
+   11  yum install dnf
+   12  yum install dnf -y
+   13  dnf
+   14  dnf -y remove yum yum-metadata-parser
+   15  rm -Rf /etc/yum
+   16  dnf upgrade
+   17  cat /etc/
+   18  cat /etc/*release*
+   19  dnf install http://vault.centos.org/8.5.2111/BaseOS/x86_64/os/Packages/{centos-linux-repos-8-3.el8.noarch.rpm,centos-linux-release-8.5-1.2111.el8.noarch.rpm,centos-gpg-keys-8-3.el8.noarch.rpm} -y
+   20  dnf install http://vault.centos.org/8.5.2111/BaseOS/x86_64/os/Packages/{centos-linux-repos-8-3.el8.noarch.rpm,centos-linux-release-8.5-1.2111.el8.noarch.rpm,centos-gpg-keys-8-3.el8.noarch.rpm}
+   21  cat /etc/dnf/dnf.conf
+   22  cat /etc/yum.repos.d/CentOS-Base.repo
+   23  echo $basearch
+   24  su - root
+   25  ll -a
+   26  source $basearch
+   27  source .bash_profile
+   28  echo $basearch
+   29  echo http://vault.centos.org/8.5.2111/BaseOS/x86_64/os/Packages/{centos-linux-repos-8-3.el8.noarch.rpm,centos-linux-release-8.5-1.2111.el8.noarch.rpm,centos-gpg-keys-8-3.el8.noarch.rpm}
+   30  dnf install http://vault.centos.org/8.5.2111/BaseOS/x86_64/os/Packages/centos-linux-repos-8-3.el8.noarch.rpm http://vault.centos.org/8.5.2111/BaseOS/x86_64/os/Packages/centos-linux-release-8.5-1.2111.el8.noarch.rpm http://vault.centos.org/8.5.2111/BaseOS/x86_64/os/Packages/centos-gpg-keys-8-3.el8.noarch.rpm
+   31  dnf update
+   32  reboot
+   33  echo http://vault.centos.org/8.5.2111/BaseOS/x86_64/os/Packages/{centos-linux-repos-8-3.el8.noarch.rpm,centos-linux-release-8.5-1.2111.el8.noarch.rpm,centos-gpg-keys-8-3.el8.noarch.rpm}
+   34  dnf install -y http://vault.centos.org/8.5.2111/BaseOS/x86_64/os/Packages/centos-linux-repos-8-3.el8.noarch.rpm http://vault.centos.org/8.5.2111/BaseOS/x86_64/os/Packages/centos-linux-release-8.5-1.2111.el8.noarch.rpm http://vault.centos.org/8.5.2111/BaseOS/x86_64/os/Packages/centos-gpg-keys-8-3.el8.noarch.rpm
+   35  curl http://vault.centos.org/8.5.2111/BaseOS/x86_64/os/Packages/centos-linux-repos-8-3.el8.noarch.rpm
+   36  wget http://vault.centos.org/8.5.2111/BaseOS/x86_64/os/Packages/centos-linux-repos-8-3.el8.noarch.rpm
+   37  ping 8.8.8.8
+   38  curl https://vault.centos.org/8.5.2111/BaseOS/x86_64/os/Packages/centos-linux-repos-8-3.el8.noarch.rpm
+   39  ping vault.centos.org
+   40  yum --enablerepo=* clean all
+   41  yum-config-manager --disable \*
+   42  yum-config-manager --enable base updates extras
+   43  yum -q repolist
+   44  dnf repolist all
+   45  dnf repolist all | grep -i stream
+   46  ping google.com
+   47  ping www.google.com
+   48  gig google.com
+   49  dig google.com
+   50  dnf install dig
+   51  nslooup
+   52  nslookup
+   53  cat /etc/*dns*
+   54  cat /etc/hosts
+   55  cat /etc/resolv.conf
+   56  ping yum --enablerepo=* clean all
+   57  yum-config-manager --disable \*
+   58  yum-config-manager --enable base updates extras
+   59  cat /etc/resolv.conf
+   60  ping 10.0.2.3
+   61  ip a
+   62  ip a | grep -i 10.0.2.3
+   63  ping 9.9.9.9
+   64  vi /etc/resolv.conf
+   65  ping google.com
+   66  ping vault.centos.org
+   67  dnf install http://vault.centos.org/8.5.2111/BaseOS/x86_64/os/Packages/{centos-linux-repos-8-3.el8.noarch.rpm,centos-linux-release-8.5-1.2111.el8.noarch.rpm,centos-gpg-keys-8-3.el8.noarch.rpm}
+   68  dnf install http://vault.centos.org/8.5.2111/BaseOS/x86_64/os/Packages/{centos-linux-repos-8-3.el8.noarch.rpm,centos-linux-release-8.5-1.2111.el8.noarch.rpm,centos-gpg-keys-8-3.el8.noarch.rpm} -y
+   69  dnf -y upgrade https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+   70  dnf clean all
+   71  rpm -e `rpm -q kernel`
+   72  rpm -e --nodeps sysvinit-tools
+   73  dnf -y --releasever=8 --allowerasing --setopt=deltarpm=false distro-sync
+   74  dnf -y --releasever=8 --allowerasing --setopt=deltarpm=false distro-sync --force
+   75  rpm -r `rpm -q systemd`
+   76  rpm -e `rpm -q systemd`
+   77  dnf -y --releasever=8 --allowerasing --setopt=deltarpm=false distro-sync
+   78  dnf -y --releasever=8 --allowerasing --setopt=deltarpm=false distro-sync --skip-broken
+   79  dnf info systemd
+   80  dnf install -y kernel-core
+   81  dnf install  kernel-core
+   82  dnf repolist
+   83  timedatectl
+   84  date
+   85  tzselect
+   86  date
+   87  timedatectl
+   88  timedatectl set-local-rtc 0
+   89  timedatectl
+   90  tzselect
+   91  timedatectl
+   92  systemctl status ntp
+   93  systemctl status chronyd
+   94  systemctl stop chronyd
+   95  systemctl start chronyd
+   96  chronyc sources
+   97  date
+   98  ping 208.85.20.220
+   99  dig 208.85.20.220
+  100  vi /etc/chrony.conf
+  101  systemctl restart chronyd
+  102  chronyc sources
+  103  date
+  104  tzselect
+  105  date
+  106  timedatectl
+  107  timedatectl --help
+  108  timedatectl set-timezones TZ='Africa/Casablanca'
+  109  timedatectl --set-timezones 'Africa/Casablanca'
+  110  timedatectl --set-timezone 'Africa/Casablanca'
+  111  timedatectl set-timezone 'Africa/Casablanca'
+  112  date
+  113  dnf clean all
+  114  dnf repolist
+  115  cd /etc/yum.repos.d/
+  116  sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*
+  117  sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
+  118  dnf update
+  119  dnf clean all
+  120  dnf -y --releasever=8 --allowerasing --setopt=deltarpm=false distro-sync
+  121  dnf -y install kernel-core
+  122  dnf -y install kernel-core --allowerasing
+  123  dnf -y install kernel-core ---skip-broken
+  124  dnf -y install kernel-core --skip-broken
+  125  dnf -y groupupdate "Core" "Minimal Install"
+  126  python
+  127  python --version
+  128  dnf -y install python3
+  129  dnf -y groupupdate "Core" "Minimal Install"
+  130  dnf -y update
+  131  rpm --rebuilddb
+  132  dnf -y update
+  133  rpm -Va --nofiles --nodigest
+  134  dnf clean all
+  135  dnf -y update
+  136  dnf -y groupupdate "Core" "Minimal Install"
+  137  dnf clean packages
+  138  cd
+  139  dnf -y --releasever=8 --allowerasing --setopt=deltarpm=false distro-sync --disablerepo=appstream
+  140  dnf -y --releasever=8 --allowerasing --setopt=deltarpm=false distro-sync --disablerepo=appstream
+  141  dnf install  NetworkManager
+  142  history
+  143  history > history_for_upgrqde
