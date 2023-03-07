@@ -55,21 +55,21 @@ ok
 
 
 # upgrade using shell script
-from the controller machine, inside ansible directory, run the yamel script upgrade_centos7to8_shell.yml, which run the shell script upgrade_centos7to8_shell.sh that content commands to upgrade the centos from version 7 to version 8.  
-
-$ ansible-playbook upgrade_centos7to8_shell.yml
-
-to fellow the upgrade progress, check the logs on the upgraded machine
-$ ssh roo@192.168.2.4
+from the controller machine, inside ansible directory, run the yamel script upgrade_centos7to8_shell.yml, which run the shell script upgrade_centos7to8_shell.sh that content commands to upgrade the centos from version 7 to version 8.    
+  
+$ ansible-playbook upgrade_centos7to8_shell.yml  
+  
+to fellow the upgrade progress, check the logs on the upgraded machine  
+$ ssh roo@192.168.2.4  
 $ tail -f /var/log/upg
-
-
+  
+  
 # upgrade using ansible modules  
-The same upgrade work achieved by shell script can be done using ansible modules. run the script upgrade_centos7to8_ansible.yml and fellow the progess from logs.
+The same upgrade work achieved by shell script can be done using ansible modules. run the script upgrade_centos7to8_ansible.yml and fellow the progess from logs.  
 
-$ ansible-playbook upgrade_centos7to8_ansible.yml
-$ ssh roo@192.168.2.4
-$ tail -f /var/log/upg
+$ ansible-playbook upgrade_centos7to8_ansible.yml  
+$ ssh roo@192.168.2.4  
+$ tail -f /var/log/upg  
 
 
 
